@@ -25,13 +25,29 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(email: string, password: string): Chainable<void>
+      drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+    }
+  }
+}
+
+Cypress.Commands.add('fillLoginForm', ({email, password}) => {
+    cy.get('input[id=input-email]').type(email);
+    cy.get('input[id=input-password]').type(password)
+});
+
+Cypress.Commands.add('setLoginCheckbox', () => {
+        cy.get('span.custom-checkbox')
+        .click()
+        .find('nb-icon.custom-checkbox-icon')
+        .should('be.visible').and('exist')
+});
+
+Cypress.Commands.add('getLoginButton', () => {
+    cy.get('button').contains('Log In')
+})
