@@ -62,7 +62,7 @@ export default class SmartTable {
         return cy.get(this._addedRowSelector).find(this._addedCellSelector);
     }
     get chosenRow() {
-        return  cy.get(this._chosenRowSelector).eq(0);
+        return  cy.get(this._chosenRowSelector).first();
     }
     get chosenCells() {
         return   cy.get(this._chosenCellSelector);
@@ -74,7 +74,7 @@ export default class SmartTable {
         return  cy.get(this._editSaveButtonSelector);
     }
     get editedRow() {
-        return  cy.get(this._chosenRowSelector).eq(0).find(this._chosenCellSelector);
+        return  cy.get(this._chosenRowSelector).first().find(this._chosenCellSelector);
     }    
 }
 
